@@ -11,40 +11,31 @@ public class WizardTower {
     }
 
     public void start() {
-
-        System.out.println("Welcome to the Wizard Tower!\nThere are several minigames to play here including -\n1. Tic Tac Toe\nWhat would you like to play?\nType the game's number to play or back to exit the tower.");
         while(true) {
-            String gameNumber = input.next();
-            if(gameNumber.toLowerCase().equals("back")) {
-                break;
-            }
-            else if(gameNumber.equals("1") || gameNumber.toLowerCase().equals("tic tac toe") || gameNumber.toLowerCase().equals("tictactoe")) {
+            System.out.println("Welcome to the Wizard Tower!\nThere are several minigames to play here including -\n1. Tic Tac Toe\n2. Leave\nWhat would you like to play?");
+            int gameNumber = input.nextInt();
+            if(gameNumber == 1) {
                 System.out.println("Tic Tac Toe Selected!");
-                int wager = checkWager();
-                TicTacToe tacGame = new TicTacToe(wager); // FIX THIS
+                TicTacToe tacGame = new TicTacToe(checkWager());
                 person.setMoney(tacGame.start());
-                System.out.println("\nNew Money: " + person.getMoney());
+                System.out.println("\nCurrent CSCs: " + person.getMoney());
+            }
+            else if(gameNumber == 2) {
+                break;
             }
             else {
                 System.out.println("Please enter a valid input");
             }
         }
-        input.close();
     }
 
     public int checkWager() {
         System.out.println("How much would you like to wager?");
-        Boolean validity = true;
+        System.out.println(person.getMoney());
         int wager = input.nextInt();
-        while(validity) {
-            if(wager <= person.getMoney()) {
-                validity = false;
-                return wager;
-            }
-            else {
-                System.out.println("Please enter a different wager!");
-                wager = input.nextInt();
-            }
+        if(!(wager <= person.getMoney())) {
+            System.out.println("Please enter a different wager!");
+            checkWager();
         }
         return wager;
     }

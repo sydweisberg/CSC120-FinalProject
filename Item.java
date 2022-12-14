@@ -22,7 +22,7 @@ public class Item {
         return this.buyAmount;
     }
 
-    public int getsellAmount() {
+    public int getSellAmount() {
         int sellAmount = buyAmount / 2;
         return sellAmount;
     }

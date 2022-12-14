@@ -56,6 +56,7 @@ public class TicTacToe {
                         System.out.print(ANSI_YELLOW + yw.charAt(i));
                     }
                 }
+                System.out.print(ANSI_RESET);
                 return wager;
             }
             boolean checker = false;
@@ -82,6 +83,7 @@ public class TicTacToe {
                         System.out.print(ANSI_YELLOW + ow.charAt(i));
                     }
                 }
+                System.out.print(ANSI_RESET);
                 return wager * (-1);
             }
         }

@@ -24,6 +24,14 @@ public class User {
         return this.userInventory;
     }
 
+    public void removeItemInInventory(int item) {
+        this.userInventory.remove(item);
+    }
+
+    public void addItemToInventory(Item item) {
+        this.userInventory.add(item);
+    }
+
     public int getHealth() {
         return this.health;
     }
@@ -34,6 +42,18 @@ public class User {
     
     public int getMoney() {
         return this.money;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setHealth(int health) {
+        this.health += health;
+    }
+
+    public void setHealthTemporary(int health) {
+        this.health = health;
     }
 
     public void setMoney(int amount) {
