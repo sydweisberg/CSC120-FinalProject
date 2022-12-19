@@ -1,5 +1,8 @@
-import java.util.ArrayList;
+import java.util.ArrayList; // Import statements
 
+/**
+ * Represents a User
+ */
 public class User {
 
     private String name;
@@ -8,6 +11,9 @@ public class User {
     private int defense;
     private int money;
 
+    /**
+     * Creates a User that has a name, inventory of Items, health, defense, and money
+     */
     public User(String n, ArrayList<Item> i, int h, int d, int m) {
         name = n;
         userInventory = i;
@@ -16,20 +22,13 @@ public class User {
         money = m;
     }
 
+    /* Accessors */
     public String getName() {
         return this.name;
     }
 
     public ArrayList<Item> getInventory() {
         return this.userInventory;
-    }
-
-    public void removeItemInInventory(int item) {
-        this.userInventory.remove(item);
-    }
-
-    public void addItemToInventory(Item item) {
-        this.userInventory.add(item);
     }
 
     public int getHealth() {
@@ -42,6 +41,15 @@ public class User {
     
     public int getMoney() {
         return this.money;
+    }
+
+    /* Manipulators */
+    public void removeItemInInventory(int item) {
+        this.userInventory.remove(item);
+    }
+
+    public void addItemToInventory(Item item) {
+        this.userInventory.add(item);
     }
 
     public void setName(String name) {
@@ -60,7 +68,11 @@ public class User {
         this.money += amount;
     }
 
+    /**
+     * Main method for testing
+     * @param args[] An empty array of Strings
+     */
     public static void main(String[] args) {
-        //new User();
+       
     }
 }

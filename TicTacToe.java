@@ -1,24 +1,32 @@
 import java.util.Scanner;
 import java.util.Random;
+import java.util.InputMismatchException; // Import statements
 
 public class TicTacToe {
     
     private int wager;
 
-    static Scanner input = new Scanner(System.in);
+    static Scanner input = new Scanner(System.in); // Creates a scanner for typing inputs into the command line
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RESET = "\u001B[0m"; // Colors to use in the game
 
+    /**
+     * Creates a TicTacToe game that has a wager
+     */
     public TicTacToe(int w) {
         wager = w;
     }
 
+    /**
+     * Starts an interactive game of Tic Tac Toe
+     * @return an integer of the user's wager based on if they won or lost the game
+     */
     public int start() {
         System.out.println(ANSI_RED + " 0 | 1 | 2 ");
         System.out.println("-----------");
-        System.out.println(" 3 | 4 | 5 ");
+        System.out.println(" 3 | 4 | 5 "); // Initial gameboard
         System.out.println("-----------");
         System.out.println(" 6 | 7 | 8 " + ANSI_RESET);
         Boolean[] squareInUse = {false, false, false, false, false, false, false, false, false};
@@ -29,15 +37,23 @@ public class TicTacToe {
         while(gameOver == false) {
             System.out.println("");
             System.out.println("Please Enter Your Number");
-            int space = input.nextInt();
+            int space = -2;
             while(space > 8 || space < 0) {
-                System.out.println("Please Enter a Number From 0-8");
-                space = input.nextInt();
+                space = checker();
+                if(space > 8 || space < 0) {
+                    System.out.println("Please enter a different number!");
+                }
             }
                 for(int i = 0; i < squareInUse.length; i++) {
                     if(squareInUse[space] == true) {
                         System.out.println("Please Enter A Different Number");
-                        space = input.nextInt();
+                        space = -2;
+                        while(space > 8 || space < 0) {
+                            space = checker();
+                            if(space > 8 || space < 0) {
+                                System.out.println("Please enter a different number!");
+                            }
+                        }
                         i = 0;
                     }
                 }
@@ -46,9 +62,8 @@ public class TicTacToe {
             gameBoard(opponentSpots, userSpots);
             if(gameWon(userSpots, true).equals("You Win!")) {
                 gameOver = true;
-                //System.out.println("You Win!");
                 String yw = "You Win!";
-                for (int i = 0; i < yw.length(); i++) {
+                for (int i = 0; i < yw.length(); i++) { // Fun for loop to display results in multiple colors
                     if(i % 2 == 1) {
                         System.out.print(ANSI_CYAN + yw.charAt(i));
                     }
@@ -73,9 +88,8 @@ public class TicTacToe {
             gameBoard(opponentSpots, userSpots);
             if(gameWon(opponentSpots, false).equals("You Lose!")) {
                 gameOver = true;
-                //System.out.println("Opponent Wins!");
                 String ow = "Opponent Wins!";
-                for (int i = 0; i < ow.length(); i++) {
+                for (int i = 0; i < ow.length(); i++) { // Fun for loop to display results in multiple colors
                     if(i % 2 == 1) {
                         System.out.print(ANSI_CYAN + ow.charAt(i));
                     }
@@ -94,6 +108,11 @@ public class TicTacToe {
         return 0;
     }
 
+    /**
+     * Displays the current gameboard based off of the squares already in use
+     * @param Boolean[] a list of the opponent's spaces
+     * @param Boolean[] a list of the user's spaces
+     */
     public static void gameBoard(Boolean[] opponentSpots, Boolean[] userSpots) {
         System.out.println("");
         String[] UI = {" ", " | ", " | ", " ", " | ", " | ", " ", " | ", " | "};
@@ -113,8 +132,13 @@ public class TicTacToe {
                 System.out.println("-----------");
             }
         }  
-        System.out.println("");
+        System.out.println(""); // Finishes printing out the gameboard
     }
+
+    /**
+     * Checks to see if the user won or lost TicTacToe
+     * @return a string saying if the user won or lost
+     */
     public static String gameWon(Boolean[] os, Boolean x) {
         boolean win = false;
         if(os[0] == true && os[1] == true && os[2] == true)
@@ -160,6 +184,26 @@ public class TicTacToe {
         }
     }
 
+    /**
+     * Checks to make sure the user's input is a integer (not a string, boolean, etc)
+     * @return an integer based on the user's valid or invalid response
+     */
+    public int checker() {
+        try {
+            int number = input.nextInt();
+            return number;
+        }
+        catch(InputMismatchException e) {
+            System.out.println("Please enter a different input!");
+            input.next();
+            return -1;
+        }
+    }
+
+    /**
+     * Main method for testing
+     * @param args[] An empty array of Strings
+     */
     public static void main(String[] args) {
         TicTacToe tictacky = new TicTacToe(100);
         tictacky.start();
